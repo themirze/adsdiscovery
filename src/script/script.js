@@ -1,21 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Campaign buttons functionality
   const campaignButtons = document.querySelectorAll(".campaign-btn");
 
   campaignButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      // Remove active class from all buttons
       campaignButtons.forEach((btn) => btn.classList.remove("active"));
-      // Add active class to clicked button
+
       button.classList.add("active");
 
-      // Pro yıldızını kaldırarak temiz metin alalım
       let campaignType = button.textContent.replace("★", "").toLowerCase().trim();
       updateCampaignInfo(campaignType);
     });
   });
 
-  // Chart.js'i dahil et
   const ctx = document.getElementById("streamGraph").getContext("2d");
   let streamChart;
 
@@ -119,15 +115,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Kampanya verilerini güncelle
   function updateCampaignInfo(campaign) {
     const campaignData = {
       starter: {
         streams: "15,000",
         potential: "20,000+",
         reach: "25,000-50,000+",
-        price: "349.00",
-        originalPrice: "499.00",
+        price: "5.00",
+        originalPrice: "12.00",
         graphData: [0, 10000, 12000, 13000, 14000, 14500, 15000],
         features: [
           { text: "No bot guarantee", enabled: true },
@@ -142,8 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
         streams: "25,000",
         potential: "35,000+",
         reach: "50,000-75,000+",
-        price: "549.00",
-        originalPrice: "699.00",
+        price: "19.00",
+        originalPrice: "30.00",
         graphData: [0, 15000, 18000, 20000, 22000, 23500, 25000],
         features: [
           { text: "No bot guarantee", enabled: true },
@@ -159,8 +154,8 @@ document.addEventListener("DOMContentLoaded", function () {
         streams: "50,000",
         potential: "75,000+",
         reach: "100,000-150,000+",
-        price: "849.00",
-        originalPrice: "999.00",
+        price: "25.00",
+        originalPrice: "50.00",
         graphData: [0, 30000, 35000, 40000, 44000, 47000, 50000],
         features: [
           { text: "No bot guarantee", enabled: true },
@@ -177,8 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
         streams: "100,000",
         potential: "150,000+",
         reach: "200,000-300,000+",
-        price: "1499.00",
-        originalPrice: "1999.00",
+        price: "50.00",
+        originalPrice: "99.00",
         graphData: [0, 60000, 70000, 80000, 88000, 94000, 100000],
         features: [
           { text: "No bot guarantee", enabled: true },
@@ -200,7 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (campaignData[campaign]) {
       const data = campaignData[campaign];
 
-      // Stats güncelleme
       document.querySelectorAll(".stat-card").forEach((card) => {
         const title = card.querySelector("p").textContent.toLowerCase();
         if (title.includes("guaranteed streams")) {
@@ -212,21 +206,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Fiyat güncelleme
       document.querySelector(".campaign-name").textContent = `${
         campaign.charAt(0).toUpperCase() + campaign.slice(1)
       } campaign - `;
       document.querySelector(".original-price").textContent = `$${data.originalPrice}`;
       document.querySelector(".current-price").textContent = `$${data.price}`;
 
-      // Grafik güncelleme
       initializeChart(data.graphData);
 
-      // Features güncelleme
       const featuresList = document.querySelector(".features-list");
       featuresList.innerHTML = "";
 
-      // Animasyon için gecikme
       data.features.forEach((feature, index) => {
         setTimeout(() => {
           const featureItem = document.createElement("div");
@@ -245,7 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
           featureItem.style.transform = "translateY(20px)";
           featuresList.appendChild(featureItem);
 
-          // Fade in animasyonu
           requestAnimationFrame(() => {
             featureItem.style.transition = "all 0.3s ease";
             featureItem.style.opacity = "1";
@@ -256,6 +245,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // İlk yükleme için starter kampanyasını göster
   updateCampaignInfo("starter");
 });
+
